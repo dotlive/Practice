@@ -1,0 +1,7 @@
+product=out_linux
+
+$(product) : test_mysql.c
+	gcc -g test_mysql.c -o $(product) -I/usr/include/mysql/ -L/usr/lib64/mysql/ -lmysqlclient
+clean :
+	rm -f $(product)
+	rm -rf $(product).dSYM
