@@ -1,3 +1,5 @@
+#!/usr/local/bin/lua
+
 --[[
 
 -- test.001 输出语句测试
@@ -237,12 +239,12 @@ end
 setDefault(t1, 100)
 print(t1.x)
 print(t1.y)
-print(t1.z)x
+print(t1.z)
 --]]
 
 
 -- test.009 oop
----[[
+--[[
 Account = { name = "", balance = 0 }
 
 function Account:new(name, balance)
@@ -270,7 +272,7 @@ end
 --Account:withdraw(10)
 
 a1 = Account:new("gyy1", 10)
-a1:display()
+a1:display()  -- <==> a1.display(a1)
 a2 = Account:new("gyy2", 20)
 a1:display()
 a2:display()
@@ -280,3 +282,29 @@ a2:display()
 a3:display()
 
 --]]
+
+
+-- test.010 weak table
+---[[
+a = {}
+setmetatable(a, {__mode='kv'}) --k,v,kv
+
+a.x = 0
+
+key = {}
+a[key] = 1
+
+key = {}
+a[key] = 2
+
+collectgarbage()
+for _, v in pairs(a) do
+	print(v)
+end
+
+--note:只有拥有显示构造的对象类型会被自动从weak表中移除，值类型boolean、number是不会自动从weak中移除的。而string类型虽然也由gc来负责清理，但是string没有显示的构造过程，因此也不会自动从weak表中移除，对于string的内存管理有单独的策略。
+
+--]]
+
+
+
