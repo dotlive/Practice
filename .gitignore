@@ -1,0 +1,2 @@
+# except build directory
+misc_test/test_gtest/build*/
