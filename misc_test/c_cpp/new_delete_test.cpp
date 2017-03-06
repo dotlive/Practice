@@ -3,13 +3,13 @@
 
 void * operator new(size_t unSize)
 {
-    printf("operator new called\n");
+    printf("operator new called, size: %u\n", unSize);
     return malloc(unSize);
 }
 
 void * operator new(size_t unSize, int nLine, const char * pFunc)
 {
-    printf("operator new called, line: %d, func: %s\n", nLine, pFunc);
+    printf("operator new called, size: %u, line: %d, func: %s\n", unSize, nLine, pFunc);
     return malloc(unSize);
 }
 
@@ -24,7 +24,7 @@ class A
 public:
     A(int a = 0) : _a(a)
     {
-        printf("constructor called\n");
+        printf("constructor A called\n");
     }
 
     ~A()
@@ -45,6 +45,11 @@ private:
 class B : public A
 {
 public:
+    B()
+    {
+        printf("constructor B called\n");
+    }
+
     ~B()
     {
         printf("~B()\n");
@@ -60,6 +65,7 @@ int main()
     printf("#####\n");
 
     A * pB = new (__LINE__, __func__) B();
+    B * pB2 = new (__LINE__, __func__) B();
     printf("#####\n");
 
     A * szA = new A[10];
@@ -68,7 +74,8 @@ int main()
     delete pA;
     printf("#####\n");
 
-    delete pB;
+    delete pB;  // mem leak?
+    delete pB2;
     printf("#####\n");
 
     delete [] szA;
