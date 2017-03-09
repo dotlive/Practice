@@ -58,6 +58,10 @@ int main()
     dataQueue.clear();
     myBinTree.InOrderTraverse(dataQueue);
     Output(dataQueue);
+
+    dataQueue.clear();
+    myBinTree.PostOrderTraverse(dataQueue);
+    Output(dataQueue);
 }
 
 void Output(const vector<char> & data)
