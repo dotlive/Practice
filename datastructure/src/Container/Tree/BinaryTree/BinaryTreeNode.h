@@ -1,8 +1,6 @@
 #ifndef BINARYTREENODE_H
 #define BINARYTREENODE_H
 
-#include <iostream>
-
 template <class T>
 class BinaryTreeNode
 {
